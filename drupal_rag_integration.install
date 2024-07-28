@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * Implements hook_install().
+ *
+ * Creates the custom table for mapping nodes to document IDs.
+ */
+function drupal_rag_integration_install() {
+  // Get the database service.
+  $schema = \Drupal::database()->schema();
+
+  // Define the schema for the table.
+  $node_doc_table_schema = [
+    'description' => 'Stores a mapping between nodes and document IDs from the Rag App.',
+    'fields' => [
+      'id' => [
+        'description' => 'The primary key of the table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'nid' => [
+        'description' => 'The node ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'doc_id' => [
+        'description' => 'The document ID returned from the Rag App.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'type' => [
+        'description' => 'The type of the document.',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'nid' => ['nid'],
+      'doc_id' => ['doc_id'],
+      'type' => ['type'],
+    ],
+  ];
+
+  // Create the table if it doesn't already exist.
+  if (!$schema->tableExists('drupal_rag_integration_node_doc')) {
+    $schema->createTable('drupal_rag_integration_node_doc', $node_doc_table_schema);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Removes the table when the module is uninstalled.
+ */
+function drupal_rag_integration_uninstall() {
+  // Get the database service.
+  $schema = \Drupal::database()->schema();
+
+  // Drop the table if it exists.
+  if ($schema->tableExists('drupal_rag_integration_node_doc')) {
+    $schema->dropTable('drupal_rag_integration_node_doc');
+  }
+}

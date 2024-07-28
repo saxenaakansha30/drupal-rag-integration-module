@@ -1,0 +1,7 @@
+name: 'Drupal RAG Integration'
+type: module
+description: 'Integrates Drupal nodes with a FastAPI app to manage RAG API calls.'
+package: Akansha
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node

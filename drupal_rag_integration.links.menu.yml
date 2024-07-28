@@ -1,0 +1,6 @@
+drupal_rag_integration.admin_ask_form:
+  title: 'Ask RAG'
+  description: 'Submit a question to the RAG system'
+  parent: system.admin_structure
+  route_name: drupal_rag_integration.ask_form
+  weight: 100

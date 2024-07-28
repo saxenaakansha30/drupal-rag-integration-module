@@ -1,0 +1,16 @@
+services:
+  logger.channel.drupal_rag_integration:
+    parent: logger.channel_base
+    arguments: ['drupal_rag_integration']
+
+  drupal_rag_integration.entity_doc_repository:
+    class: Drupal\drupal_rag_integration\Repository\EntityDocRepository
+    arguments: ['@database', '@logger.channel.drupal_rag_integration']
+
+  drupal_rag_integration.api_client:
+    class: Drupal\drupal_rag_integration\ApiClient
+    arguments: ['@http_client', '@logger.channel.drupal_rag_integration']
+
+  drupal_rag_integration.entity_operations:
+    class: Drupal\drupal_rag_integration\EntityOperation\RagEntityOperations
+    arguments: ['@drupal_rag_integration.entity_doc_repository', '@logger.channel.drupal_rag_integration', '@drupal_rag_integration.api_client']

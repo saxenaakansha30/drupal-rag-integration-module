@@ -1,0 +1,7 @@
+drupal_rag_integration.ask_form:
+  path: '/ask-question'
+  defaults:
+    _form: '\Drupal\drupal_rag_integration\Form\AskForm'
+    _title: 'Ask a Question to RAG'
+  requirements:
+    _permission: 'access content'

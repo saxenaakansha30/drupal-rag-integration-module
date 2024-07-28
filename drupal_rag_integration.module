@@ -1,0 +1,45 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\drupal_rag_integration\EntityOperation\RagEntityOperations;
+
+/**
+ * @file
+ * Primary module hooks for Drupal RAG App Integration module.
+ */
+
+/**
+ * Implements hook_ENTITY_TYPE_insert() for node entities.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The node entity that was inserted.
+ */
+function drupal_rag_integration_node_insert(EntityInterface $entity) {
+  /** @var RagEntityOperations $entity_operations */
+  $entity_operations = \Drupal::service('drupal_rag_integration.entity_operations');
+  $entity_operations->handleInsert($entity);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update() for node entities.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The node entity that was updated.
+ */
+function drupal_rag_integration_node_update(EntityInterface $entity) {
+  /** @var RagEntityOperations $entity_operations */
+  $entity_operations = \Drupal::service('drupal_rag_integration.entity_operations');
+  $entity_operations->handleUpdate($entity);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete() for node entities.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The node entity that was deleted.
+ */
+function drupal_rag_integration_node_delete(EntityInterface $entity) {
+  /** @var RagEntityOperations $entity_operations */
+  $entity_operations = \Drupal::service('drupal_rag_integration.entity_operations');
+  $entity_operations->handleDelete($entity);
+}
